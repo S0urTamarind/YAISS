@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_uqb1s"]
 radius = 43.011627
 
-[node name="Area2D" type="Area2D" unique_id=1299031923]
+[node name="Player" type="Area2D" unique_id=1299031923]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1526356531]
 texture = ExtResource("1_t8hoq")
