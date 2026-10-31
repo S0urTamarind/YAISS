@@ -14,5 +14,5 @@ func shoot() -> void:
 	
 	bullet.direction = fire_dir
 	bullet.global_position = global_position + (fire_dir * spawn_distance)
-	bullet.rotation = fire_dir.angle() + (PI / 2)
+	bullet.rotation = fire_dir.angle()
 	get_tree().root.add_child(bullet)
