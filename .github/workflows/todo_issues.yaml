@@ -1,0 +1,27 @@
+name: TODO to Issue
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.gd'
+
+jobs:
+  todo-to-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse TODO and FIXME comments
+        uses: alstr/todo-to-issue-action@v5
+        with:
+          INSERT_ISSUE_URLS: "true"
+          CLOSE_ISSUES: "true"
+          AUTO_ASSIGN: "true"
+          IDENTIFIERS: >
+            [
+              {"name": "TODO", "labels": ["todo"]},
+              {"name": "FIXME", "labels": ["bug"]}
+            ]
