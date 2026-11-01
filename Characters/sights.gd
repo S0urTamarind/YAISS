@@ -11,6 +11,8 @@ func _ready() -> void:
 	padding = calcPadding(player)
 
 func _physics_process(delta: float) -> void:
+	
+	# TODO: Handle input system better somehow
 	var dirVec := Input.get_vector(
 		"Shift Aim Left", "Shift Aim Right", 
 		"Shift Aim Up", "Shift Aim Down"
