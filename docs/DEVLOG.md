@@ -59,3 +59,7 @@
 - Expanded `src/yaiss/logging.gd` with a `FATAL` log level, rich text formatting (`print_rich`), color/bold arguments, and shorthand static methods (`record_debug`, `record_info`, etc.).
 - Refactored `Characters/player.gd` to remove local logging wrappers and directly invoke `Log.record_debug()`.
 - Removed `window/size/mode=4` from `project.godot`.
+
+### PR #38: Update comments to verify CI (2026-11-01 22:33 UTC)
+- Updated internal inline TODO comments across `bullet.gd`, `player.gd`, `sights.gd`, `logging.gd`, and `runtime.gd` to standardize phrasing ("Investigate" changed to "Review" or "Consider").
+- Maintained existing architectural implementations in `player.gd` and `sights.gd`, preserving the `Area2D` and `Sprite2D` dependencies, vector normalization for bullet trajectory calculations, and `Input.get_vector` polling.
