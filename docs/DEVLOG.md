@@ -65,3 +65,6 @@
 - Updated `Characters/player.gd` (`Area2D`) and `Characters/sights.gd` (`Sprite2D`) to document tighter architectural coupling via inline TODO annotations on `@export` dependencies.
 - Maintained vector-based firing mathematics in `Player.shoot()`, utilizing normalized `sight` and `player` global positions alongside `calcPadding()` to assign `bullet.direction`.
 - Preserved continuous input polling via `Input.get_vector()` in `sights.gd` utilizing input actions (`Shift Aim Left`/`Right`/`Up`/`Down`) for aiming logic.
+
+### PR #18: Update comments to verify CI (2026-11-01 21:52 UTC)
+- Updated internal code comments across `bullet.gd`, `player.gd`, `sights.gd`, `logging.gd`, and `runtime.gd` without modifying core engine logic, node structures, or vector calculations.
