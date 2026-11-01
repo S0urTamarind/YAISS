@@ -131,13 +131,22 @@ jobs:
             1. Evaluate and explain the TODO/FIXME based on the code logic. If the comment seems invalid, outdated, or unnecessary based on the surrounding code, explicitly state that.
             2. Suggest approaches to implement the TODO or resolve the FIXME. You do not need to provide exact code. If there are multiple valid architectural solutions, briefly state each one along with its primary pros and cons.
 
-            Formatting requirements:
-            - Return plain Markdown suitable for a GitHub issue comment.
-            - Start with exactly the heading: ## Evaluation of the TODO
-            - Follow with exactly the heading: ## Implementation Approaches
-            - Use concise paragraphs and bullet lists under those headings.
-            - Do not wrap the response or either heading in an outer code block.
-            - Do not include an introduction, disclaimer, or closing statement.
+            Output requirements:
+            - Return only valid JSON. Do not use Markdown, code fences, or any text before or after the JSON.
+            - Use exactly this shape:
+              {
+                \"evaluation\": \"A concise evaluation of the TODO/FIXME.\",
+                \"approaches\": [
+                  {
+                    \"name\": \"Approach name\",
+                    \"description\": \"What the approach would do.\",
+                    \"pros\": [\"Primary advantage\"],
+                    \"cons\": [\"Primary trade-off\"]
+                  }
+                ]
+              }
+            - The evaluation must explain whether the TODO/FIXME is valid, outdated, or unnecessary.
+            - Include one or more approaches. Each approach must have a name, description, pros array, and cons array.
 
             <untrusted_issue>
             Title:
@@ -167,7 +176,7 @@ jobs:
 
               HTTP_RESPONSE=$(curl -s -w "\n%{http_code}" "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${GEMINI_API_KEY}" \
                 -H 'Content-Type: application/json' \
-                -d "{\"contents\": [{\"parts\": [{\"text\": $(echo "$PROMPT" | jq -Rs .)}]}]}")
+                -d "{\"contents\": [{\"parts\": [{\"text\": $(echo "$PROMPT" | jq -Rs .)}]}], \"generationConfig\": {\"responseMimeType\": \"application/json\"}}")
 
               HTTP_BODY=$(echo "$HTTP_RESPONSE" | sed '$d')
               HTTP_STATUS=$(echo "$HTTP_RESPONSE" | tail -n1)
@@ -176,10 +185,31 @@ jobs:
               if [ "$HTTP_STATUS" -eq 200 ]; then
                 PARSED_TEXT=$(echo "$HTTP_BODY" | jq -r '.candidates[0].content.parts[0].text // empty')
                 if [ -n "$PARSED_TEXT" ]; then
-                  RESPONSE=$(printf '%s\n' "$PARSED_TEXT" | sed -E '/^[[:space:]]*```(markdown|md)?[[:space:]]*$/d')
-                  SUCCESS=1
-                  echo "[$(date -u +'%Y-%m-%dT%H:%M:%SZ')] Gemini analysis received."
-                  break
+                  JSON_RESPONSE=$(printf '%s\n' "$PARSED_TEXT" | sed -E \
+                    -e '/^[[:space:]]*```[[:alnum:]_-]*[[:space:]]*$/d')
+                  if RESPONSE=$(printf '%s' "$JSON_RESPONSE" | jq -e -r '
+                    if (.evaluation | type) != "string"
+                       or (.approaches | type) != "array"
+                       or (.approaches | length) == 0
+                       or any(.approaches[]; (.name | type) != "string"
+                         or (.description | type) != "string"
+                         or (.pros | type) != "array"
+                         or (.cons | type) != "array")
+                    then error("Response does not match the required JSON shape")
+                    else
+                      "## Evaluation of the TODO\n\(.evaluation)\n\n## Implementation Approaches\n"
+                      + (.approaches | map(
+                          "- **\(.name):** \(.description)\n"
+                          + "  - Pros: " + (.pros | join("; ")) + "\n"
+                          + "  - Cons: " + (.cons | join("; "))
+                        ) | join("\n"))
+                    end
+                  '); then
+                    SUCCESS=1
+                    echo "[$(date -u +'%Y-%m-%dT%H:%M:%SZ')] Valid JSON analysis received and formatted."
+                    break
+                  fi
+                  echo "::warning::Gemini returned invalid JSON or an unexpected response shape."
                 fi
               fi
 
