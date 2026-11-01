@@ -9,6 +9,9 @@ on:
       - '**.gd'
       - '**.tscn'
       - '**.tres'
+      - '**.res'
+      - '**.gdshader'
+      - '**.shader'
       - 'project.godot'
 
 jobs:
@@ -62,7 +65,7 @@ jobs:
             exit 1
           }
 
-          DIFF=$(git diff "$BASE_SHA" "$HEAD_SHA" -- '*.gd' '*.tscn' '*.tres' 'project.godot')
+          DIFF=$(git diff "$BASE_SHA" "$HEAD_SHA" -- '*.gd' '*.tscn' '*.tres' '*.res' '*.gdshader' '*.shader' 'project.godot')
           DIFF_LINES=$(printf '%s\n' "$DIFF" | wc -l)
           DIFF_BYTES=$(printf '%s' "$DIFF" | wc -c)
           echo "[$(date -u +'%Y-%m-%dT%H:%M:%SZ')] Diff size: $DIFF_LINES lines, $DIFF_BYTES bytes."
