@@ -3,10 +3,6 @@ extends Area2D
 @export var bullet_scene: PackedScene
 @export var sight: Sprite2D
 const Log = preload("res://src/yaiss/logging.gd")
-const logl = Log.Level
-
-static func player_log(level: logl, msg: String) -> void:
-	Log.record(level, msg, ["Player"])
 	
 func _physics_process(_delta: float) -> void:
 	# TODO: Make this callback
@@ -14,7 +10,7 @@ func _physics_process(_delta: float) -> void:
 		shoot()
 		
 func shoot() -> void:
-	player_log(logl.INFO, "Player called shoot()")
+	Log.record_debug("Player called shoot()!", ["Player"])
 
 	# TODO: Maybe consider decoupling player and sight?
 	var bullet = bullet_scene.instantiate()
