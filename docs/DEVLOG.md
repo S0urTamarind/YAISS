@@ -63,3 +63,6 @@
 
 ### PR #18: Update comments to verify CI (2026-11-01 21:52 UTC)
 - Updated internal code comments across `bullet.gd`, `player.gd`, `sights.gd`, `logging.gd`, and `runtime.gd` without modifying core engine logic, node structures, or vector calculations.
+
+### PR #28: Fix ci (2026-11-01 22:12 UTC)
+- Updated inline TODO comment phrasing across `bullet.gd`, `player.gd`, `sights.gd`, `logging.gd`, and `runtime.gd` without altering execution logic or script dependencies.
