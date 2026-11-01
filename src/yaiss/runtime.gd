@@ -1,7 +1,7 @@
 extends RefCounted
 const Log = preload("res://src/yaiss/logging.gd")
 
-# TODO: Look into whether we need an assert wrapper
+# TODO: Determine whether an assert wrapper is needed here
 
 static func yaiss_error(msg: String, tags: Array[String] = []) -> void:
 	Log.record_error(msg, tags)
