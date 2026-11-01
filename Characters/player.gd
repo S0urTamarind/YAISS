@@ -1,21 +1,20 @@
 extends Area2D
 
 @export var bullet_scene: PackedScene
-@export var sight: Sprite2D
+@export var sight: Sprite2D # TODO: Decouple sights from player
 const Log = preload("res://src/yaiss/logging.gd")
 	
 func _physics_process(_delta: float) -> void:
-	# TODO: Make this callback
+	# TODO: Make inputs a callback
 	if Input.is_action_just_pressed("Shoot"):
 		shoot()
 		
 func shoot() -> void:
 	Log.record_debug("Player called shoot()!", ["Player"])
 
-	# TODO: Maybe consider decoupling player and sight?
 	var bullet = bullet_scene.instantiate()
 	var fire_dir = (sight.global_position - global_position).normalized()
-	# TODO: Create helper class
+	# TODO: Create and move to a helper class
 	var spawn_distance = sight.calcPadding(self)
 	
 	bullet.direction = fire_dir
