@@ -60,3 +60,8 @@
 - Refactored `Characters/player.gd` to remove local logging wrappers and directly invoke `Log.record_debug()`.
 - Removed `window/size/mode=4` from `project.godot`.
 
+
+### PR #3: Update TODO comments (2026-11-01 20:01 UTC)
+- Updated `Characters/player.gd` (`Area2D`) and `Characters/sights.gd` (`Sprite2D`) to document tighter architectural coupling via inline TODO annotations on `@export` dependencies.
+- Maintained vector-based firing mathematics in `Player.shoot()`, utilizing normalized `sight` and `player` global positions alongside `calcPadding()` to assign `bullet.direction`.
+- Preserved continuous input polling via `Input.get_vector()` in `sights.gd` utilizing input actions (`Shift Aim Left`/`Right`/`Up`/`Down`) for aiming logic.

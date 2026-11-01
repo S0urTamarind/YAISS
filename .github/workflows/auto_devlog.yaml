@@ -109,3 +109,4 @@ jobs:
         with:
           commit_message: "docs: update devlog for PR #${{ github.event.pull_request.number }} [skip ci]"
           file_pattern: 'docs/DEVLOG.md'
+          branch: main
