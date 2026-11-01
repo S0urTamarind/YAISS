@@ -1,7 +1,7 @@
 extends Sprite2D
 
 @export var speed: float = 600
-@export var player: Area2D # TODO: Investigate decoupling the player from the sight
+@export var player: Area2D # TODO: Review decoupling the player from the sight
 @export var extra_margin: float = 10.0
 
 var padding: float = 120
@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	# TODO: Handle input with a callback instead of polling every tick
+	# TODO: Handle input using a callback instead of polling every tick
 	var dirVec := Input.get_vector(
 		"Shift Aim Left", "Shift Aim Right", 
 		"Shift Aim Up", "Shift Aim Down"
