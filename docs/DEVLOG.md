@@ -59,4 +59,3 @@
 - Expanded `src/yaiss/logging.gd` with a `FATAL` log level, rich text formatting (`print_rich`), color/bold arguments, and shorthand static methods (`record_debug`, `record_info`, etc.).
 - Refactored `Characters/player.gd` to remove local logging wrappers and directly invoke `Log.record_debug()`.
 - Removed `window/size/mode=4` from `project.godot`.
-- 
