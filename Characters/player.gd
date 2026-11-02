@@ -1,23 +1,22 @@
+class_name Player
 extends Area2D
 
 @export var bullet_scene: PackedScene
-@export var sight: Sprite2D # TODO: Review separating the sight from the player
+@export var aim_target: Node2D
+@export var projectile_spawn_margin: float = 10.0
 const Log = preload("res://src/yaiss/logging.gd")
-	
-func _physics_process(_delta: float) -> void:
-	# TODO: Review handling input via a callback
-	if Input.is_action_just_pressed("Shoot"):
-		shoot()
-		
-func shoot() -> void:
-	Log.record_debug("Player called shoot()!", ["Player"])
+const Geometry = preload("res://src/yaiss/geometry.gd")
 
-	var bullet = bullet_scene.instantiate()
-	var fire_dir = (sight.global_position - global_position).normalized()
-	# TODO: Consider extracting this behavior into a helper class
-	var spawn_distance = sight.calcPadding(self)
-	
-	bullet.direction = fire_dir
-	bullet.global_position = global_position + (fire_dir * spawn_distance)
-	bullet.rotation = fire_dir.angle()
-	get_tree().root.add_child(bullet)
+func get_aim() -> Dictionary[String, Vector2]:
+	var direction := (
+		aim_target.global_position - global_position
+	).normalized()
+
+	var spawn_distance := (
+		Geometry.collision_radius(self) + projectile_spawn_margin
+	)
+
+	return {
+		"origin": global_position + direction * spawn_distance,
+		"direction": direction,
+	}
