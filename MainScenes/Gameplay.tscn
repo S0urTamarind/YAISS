@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cthwt6mebib8f" path="res://Characters/Player.tscn" id="1_w5jnf"]
 [ext_resource type="PackedScene" uid="uid://bbnwbehgbelh1" path="res://Characters/Sights.tscn" id="2_i7ue5"]
+[ext_resource type="Script" uid="uid://bd0ms0tjoryoi" path="res://src/yaiss/weapons/weapon_mgr.gd" id="2_yjb1e"]
 
 [node name="Gameplay" type="Node2D" unique_id=636402467]
 
@@ -9,7 +10,14 @@
 position = Vector2(960, 540)
 aim_target = NodePath("../Sights")
 
+[node name="WeaponMgr" type="Node2D" parent="Player" unique_id=940279955 node_paths=PackedStringArray("projectile_parent", "player")]
+script = ExtResource("2_yjb1e")
+projectile_parent = NodePath("../../Projectiles")
+player = NodePath("..")
+
 [node name="Sights" parent="." unique_id=559882072 node_paths=PackedStringArray("player") instance=ExtResource("2_i7ue5")]
 position = Vector2(960, 400)
 speed = 700.0
 player = NodePath("../Player")
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=11292157]
