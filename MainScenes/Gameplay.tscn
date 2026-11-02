@@ -5,9 +5,9 @@
 
 [node name="Gameplay" type="Node2D" unique_id=636402467]
 
-[node name="Player" parent="." unique_id=1299031923 node_paths=PackedStringArray("sight") instance=ExtResource("1_w5jnf")]
+[node name="Player" parent="." unique_id=1299031923 node_paths=PackedStringArray("aim_target") instance=ExtResource("1_w5jnf")]
 position = Vector2(960, 540)
-sight = NodePath("../Sights")
+aim_target = NodePath("../Sights")
 
 [node name="Sights" parent="." unique_id=559882072 node_paths=PackedStringArray("player") instance=ExtResource("2_i7ue5")]
 position = Vector2(960, 400)
