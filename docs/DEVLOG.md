@@ -63,3 +63,8 @@
 ### PR #59: Add Space Background with Star particles (2026-11-02 18:32 UTC)
 * Added a `Sprite2D` node named `Background` to `Gameplay.tscn` using `backgroundColor.png`, configured with uncentered positioning and scaling to cover the viewport.
 * Added a child `CPUParticles2D` node under `Background` in `Gameplay.tscn` utilizing `starBig.png` with rectangular emission bounds, downward directional velocity, and randomized angular rotation for a scrolling starfield effect.
+
+### PR #61: Added weapons system to YAISS (2026-11-02 19:35 UTC)
+* **Engine & Node Architecture:** Added a new `WeaponMgr` node (`WeaponMgr` script) to the `Gameplay.tscn` scene hierarchy with exported `@export` dependencies for `projectile_parent` (`Node2D`) and `player` (`Player`). Introduced foundational weapon classes (`WeaponBase`, `WeaponCtx`, and `DefaultWeapon`) to modularize combat behavior.
+* **Input Handling & Aiming:** Migrated input handling for the `"Shoot"` action from `player.gd` to `WeaponMgr._unhandled_input()`, and replaced the direct `sight` reference in `Player` with a generic `@export var aim_target: Node2D` along with a new `get_aim()` method returning an origin and normalized direction dictionary.
+* **Math & Geometry Calculations:** Implemented a static geometry utility class (`src/yaiss/geometry.gd`) providing `collision_radius()` to evaluate `CircleShape2D`, `RectangleShape2D`, and `CapsuleShape2D` nodes, replacing inline padding calculations in `sights.gd` and standardizing global position and rotation transformations for bullets.
