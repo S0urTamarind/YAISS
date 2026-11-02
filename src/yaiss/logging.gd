@@ -8,7 +8,7 @@ static func record(level: Level, msg: String, tags: Array[String] = [], color: C
 		tags_str = "[" + "][".join(tags) + "]"
 		
 	var datetime = Time.get_datetime_string_from_system(false, true)
-	# TODO: This has scope for future enhancement to match Boost.log semantics
+	# TODO: Review aligning with Boost.log semantics
 	if is_bold:
 		print_rich("[b][color=#%s][%s][%s]%s %s[/color][/b]" % [color.to_html(), datetime, Level.find_key(level), tags_str, msg])
 	else:

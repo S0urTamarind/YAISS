@@ -7,6 +7,6 @@ func _physics_process(delta: float) -> void:
 	global_position += direction * speed * delta
 	global_rotation = direction.angle()
 
-
+# TODO: Confirm that freeing the bullet fully releases it from memory
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

@@ -3,7 +3,7 @@ extends Sprite2D
 const Geometry = preload("res://src/yaiss/geometry.gd")
 
 @export var speed: float = 600
-@export var player: Area2D
+@export var player: Area2D # TODO: Review separating the player from the sight
 @export var extra_margin: float = 10.0
 
 var padding: float = 120
@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	# TODO: Handle input system better somehow
+	# TODO: Handle input via a callback instead of polling every tick
 	var dirVec := Input.get_vector(
 		"Shift Aim Left", "Shift Aim Right", 
 		"Shift Aim Up", "Shift Aim Down"

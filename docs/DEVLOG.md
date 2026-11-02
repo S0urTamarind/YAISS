@@ -60,3 +60,6 @@
 - Refactored `Characters/player.gd` to remove local logging wrappers and directly invoke `Log.record_debug()`.
 - Removed `window/size/mode=4` from `project.godot`.
 
+### PR #59: Add Space Background with Star particles (2026-11-02 18:32 UTC)
+* Added a `Sprite2D` node named `Background` to `Gameplay.tscn` using `backgroundColor.png`, configured with uncentered positioning and scaling to cover the viewport.
+* Added a child `CPUParticles2D` node under `Background` in `Gameplay.tscn` utilizing `starBig.png` with rectangular emission bounds, downward directional velocity, and randomized angular rotation for a scrolling starfield effect.
