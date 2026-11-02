@@ -34,7 +34,7 @@ jobs:
         with:
           INSERT_ISSUE_URLS: "true"
           CLOSE_ISSUES: "true"
-          AUTO_ASSIGN: "true"
+          AUTO_ASSIGN: "false"
           IDENTIFIERS: >
             [
               {"name": "TODO", "labels": ["todo"]},
