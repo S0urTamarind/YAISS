@@ -1,38 +1,28 @@
 extends Sprite2D
 
-const Geometry = preload("res://src/yaiss/geometry.gd")
-
-@export var speed: float = 600
-@export var player: Area2D # TODO: Review separating the player from the sight
-@export var extra_margin: float = 10.0
-
-var padding: float = 120
-var vel := Vector2.ZERO
-
-# TODO: This is AI-generated and needs to be replaced once we declare objects to have colliders first,
-# 		then fit a texture to it
 func _ready() -> void:
-	var sight_radius := 0.0
-	if texture:
-		sight_radius = texture.get_size().length() * 0.5 * maxf(absf(global_scale.x), absf(global_scale.y))
-	padding = Geometry.collision_radius(player) + sight_radius + extra_margin
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _physics_process(delta: float) -> void:
-	
-	# TODO: Handle input via a callback instead of polling every tick
-	var dirVec := Input.get_vector(
-		"Shift Aim Left", "Shift Aim Right", 
-		"Shift Aim Up", "Shift Aim Down"
+func _input(event: InputEvent) -> void:
+	if not event is InputEventMouseMotion:
+		return
+
+	global_position += event.relative
+	_clamp_to_gameplay_area()
+
+func _clamp_to_gameplay_area() -> void:
+	var viewport_rect := get_viewport_rect()
+	var half_size := Vector2.ZERO
+	if texture:
+		half_size = texture.get_size() * 0.5 * global_scale.abs()
+
+	global_position.x = clampf(
+		global_position.x,
+		viewport_rect.position.x + half_size.x,
+		viewport_rect.end.x - half_size.x
 	)
-		
-	vel = dirVec.normalized() * speed
-	global_position += vel * delta
-	
-	if player:
-		var difference:= global_position - player.global_position
-		var radius:= difference.length()
-		if radius < padding:
-			if is_zero_approx(radius):
-				global_position = player.global_position + Vector2.UP * padding
-			else:
-				global_position = player.global_position + difference.normalized() * padding
+	global_position.y = clampf(
+		global_position.y,
+		viewport_rect.position.y + half_size.y,
+		viewport_rect.end.y - half_size.y
+	)

@@ -6,4 +6,3 @@
 [node name="Sights" type="Sprite2D" unique_id=559882072]
 texture = ExtResource("1_n8aw6")
 script = ExtResource("2_2oxow")
-speed = 500.0
