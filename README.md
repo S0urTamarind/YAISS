@@ -16,7 +16,7 @@ An open-source experimental 2D space shooter built with Godot 4 and GDScript.
 ---
 
 > ⚠️ **Project Status: Early Pre-Alpha / In Active Development**  
-> This is a learning-focused open-source project. Systems, controls, and scene hierarchies are actively evolving and are not yet in a playable release state.
+> This is a learning-focused open-source project. Core movement, mouse aiming, a basic weapon system, projectiles, and a scrolling starfield are currently implemented. Systems, balance, and scene hierarchies are still evolving.
 
 ---
 
@@ -34,14 +34,19 @@ An open-source experimental 2D space shooter built with Godot 4 and GDScript.
 2. Open Godot 4, click **Import**, and select the cloned folder.
 3. Press the Play button to run the project.
 
+The configured main scene is `MainScenes/Gameplay.tscn`. The project currently targets a 1920×1080 viewport and uses Godot's GL Compatibility renderer.
+
 ---
 
 ## 🎮 Current Controls
 
 | Action | Mapping | Description |
 |---|---|---|
-| **Aim Crosshair** | WASD or Arrow Keys | Move the orbiting sight around the player |
-| **Shoot** | Space | Spawns projectiles toward the active sight position |
+| **Move** | `W` `A` `S` `D` | Move the player up, left, down, and right |
+| **Aim** | Mouse movement | Move the captured mouse crosshair around the gameplay area |
+| **Shoot** | Hold `Space` | Fire the equipped weapon toward the crosshair |
+
+The mouse is captured when gameplay starts so relative mouse movement can be used for aiming. The crosshair is constrained to the visible gameplay area.
 
 ---
 
@@ -49,20 +54,37 @@ An open-source experimental 2D space shooter built with Godot 4 and GDScript.
 
 ```text
 YAISS/
-├── Assets/           # Art, textures, sprites, etc
-├── Characters/       # Reusable scenes such as plater, crosshair, projectiles, etc
-├── MainScenes/       # Level staging and gameplay arenas
-├── docs/             # Running technical change history (DEVLOG.md)
-├── src/              # Utility folder
-└── project.godot     # Engine configuration and input action maps
+├── Assets/
+│   ├── notebookBg.png        # Custom project artwork
+│   ├── star.png              # Custom project artwork
+│   └── SpaceShooter_Assets/  # Legacy online asset pack being phased out
+├── Characters/
+│   ├── Background.tscn        # Space background and starfield
+│   ├── Bullet.tscn            # Projectile scene
+│   ├── Player.tscn            # Player scene
+│   ├── Sights.tscn            # Mouse-controlled aiming crosshair
+│   ├── bullet.gd
+│   ├── player.gd
+│   └── sights.gd
+├── MainScenes/
+│   └── Gameplay.tscn          # Main gameplay scene
+├── docs/
+│   ├── DEVLOG.md              # Development history
+│   └── IMAGE_OPTIMIZATION.md  # Image optimization notes
+├── src/yaiss/
+│   ├── geometry.gd            # Collision and geometry helpers
+│   ├── logging.gd             # Shared logging utility
+│   ├── runtime.gd             # Runtime error and fatal-error helpers
+│   └── weapons/               # Weapon abstractions and default weapon
+└── project.godot               # Engine configuration and input action map
 ```
 
 ---
 
 ## 📜 Development Log
 
-Technical changes and system updates are documented via an automated workflow on every merged feature.  
-Check out the running devlog in **[`docs/DEVLOG.md`](docs/DEVLOG.md)**.
+Technical changes and system updates are documented in the running devlog.
+Check out **[`docs/DEVLOG.md`](docs/DEVLOG.md)** for implementation history.
 
 ---
 

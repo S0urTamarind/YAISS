@@ -1,35 +1,13 @@
 [gd_scene format=3 uid="uid://bwpn4wxnos482"]
 
+[ext_resource type="PackedScene" uid="uid://dh0hmlcxnlpxh" path="res://Characters/Background.tscn" id="1_2fy00"]
 [ext_resource type="PackedScene" uid="uid://cthwt6mebib8f" path="res://Characters/Player.tscn" id="1_w5jnf"]
-[ext_resource type="Texture2D" uid="uid://cgjp83p3os3fi" path="res://Assets/SpaceShooter_Assets/backgroundColor.png" id="1_yjb1e"]
-[ext_resource type="Texture2D" uid="uid://caovxt7e1p6di" path="res://Assets/SpaceShooter_Assets/starBig.png" id="2_2fy00"]
 [ext_resource type="PackedScene" uid="uid://bbnwbehgbelh1" path="res://Characters/Sights.tscn" id="2_i7ue5"]
 [ext_resource type="Script" uid="uid://bd0ms0tjoryoi" path="res://src/yaiss/weapons/weapon_mgr.gd" id="2_yjb1e"]
 
 [node name="Gameplay" type="Node2D" unique_id=636402467]
 
-[node name="Background" type="Sprite2D" parent="." unique_id=489821921]
-position = Vector2(-9, -9)
-scale = Vector2(12.933331, 7.3533335)
-texture = ExtResource("1_yjb1e")
-centered = false
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Background" unique_id=1980864133]
-position = Vector2(74.9227, 0.54397094)
-amount = 40
-texture = ExtResource("2_2fy00")
-lifetime = 1.55
-preprocess = 1.4
-emission_shape = 3
-emission_rect_extents = Vector2(78, 1)
-direction = Vector2(0, 1)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 120.0
-angle_min = -720.0
-angle_max = 720.0
-scale_amount_max = 2.0
+[node name="Background" parent="." unique_id=618394710 instance=ExtResource("1_2fy00")]
 
 [node name="Player" parent="." unique_id=1299031923 node_paths=PackedStringArray("aim_target") instance=ExtResource("1_w5jnf")]
 position = Vector2(960, 540)
@@ -40,9 +18,7 @@ script = ExtResource("2_yjb1e")
 projectile_parent = NodePath("../../Projectiles")
 player = NodePath("..")
 
-[node name="Sights" parent="." unique_id=559882072 node_paths=PackedStringArray("player") instance=ExtResource("2_i7ue5")]
+[node name="Sights" parent="." unique_id=559882072 instance=ExtResource("2_i7ue5")]
 position = Vector2(960, 400)
-speed = 700.0
-player = NodePath("../Player")
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=11292157]
