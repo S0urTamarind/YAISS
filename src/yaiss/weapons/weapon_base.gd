@@ -2,8 +2,10 @@ class_name WeaponBase
 extends RefCounted
 
 var weapon_ctx: WeaponCtx
+var weapon_name: String
 
-func _init(ctx: WeaponCtx) -> void:
+func _init(name: String, ctx: WeaponCtx) -> void:
+	weapon_name = name
 	weapon_ctx = ctx
 
 func on_press() -> void:
